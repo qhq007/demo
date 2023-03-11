@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #333;
+        }
+
+        .drag {
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+        }
+
+        .drop {
+            width: 250px;
+            height: 250px;
+            border: 4px dashed aqua;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .drop::after {
+            content: "请拖拽到此处";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            color: rgb(143, 132, 132);
+            z-index: -1;
+        }
+
+        .drop.over {
+            border: 4px dashed orange;
+        }
+
+        .drop.dropend {
+            border: 4px dashed green;
+        }
+
+        .drop img {
+            width: 80%;
+            height: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="drag-container">
+        <div class="drag" draggable="true"></div>
+    </div>
+    <div class="drop"></div>
+    <script>
+        const drag = document.querySelector(".drag");
+        const drop = document.querySelector(".drop");
+        drag.addEventListener("dragstart", (event) => {
+            event.dataTransfer.setData("text/plain", drag.className);
+        })
+        drop.addEventListener("dragover", (event) => {
+            drop.classList.add("over");
+            event.preventDefault();
+        })
+        drop.addEventListener("dragleave", () => {
+            drop.classList.remove("over");
+        })
+        drop.addEventListener("drop", (event) => {
+            drop.classList.add("dropend");
+            event.preventDefault();
+            const files = event.dataTransfer.files;
+            if (files) {
+                [...files].forEach((file) => {
+                    if (file.type.startsWith("image/")) {
+                        const img = document.createElement("img");
+                        img.src = URL.createObjectURL(file);
+                        img.onload = () => {
+                            URL.revokeObjectURL(img.src);
+                        }
+                        drop.appendChild(img);
+                    }
+                })
+            }
+            const data = event.dataTransfer.getData("text/plain");
+            if(data){
+                drop.appendChild(document.getElementsByClassName(data)[0]);
+            }
+        })
+    </script>
+</body>
+
+</html>
