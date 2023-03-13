@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.1/echarts.common.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            flex-flow: wrap;
+        }
+
+        body > div {
+            width:40%;
+            height: 30%;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+    <div class="box5"></div>
+    <div class="box6"></div>
+    <script>
+        // 柱状图形1
+        (function () {
+            const box = document.querySelector(".box1");
+            const myChart = echarts.init(box);
+            const option = {
+                xAxis: {
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    axisLabel: {
+                        color: "skyblue",
+                        fontSize: 12
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        color: "skyblue",
+                        fontSize: 12
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "gray",
+                            width: 2
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "gray"
+                        }
+                    }
+                },
+                grid: {
+                    left: "5%",
+                    top: "10%",
+                    right: "5%",
+                    bottom: "4%",
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow",
+                        shadowStyle: {
+                            color: "rgba(180, 180, 180, 0.2)",
+                        }
+                    }
+                },
+                series: [
+                    {
+                        data: [120, 200, 150, 80, 70, 110, 130],
+                        type: 'bar',
+                        showBackground: false,
+                        backgroundStyle: {
+                            color: 'rgba(180, 180, 180, 0.2)'
+                        },
+                        itemStyle: {
+                            borderRadius: 5
+                        }
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            window.addEventListener("resize", () => {
+                myChart.resize();
+            })
+        })();
+
+        // 柱状图形2
+        (function () {
+            const myColor = ["green", "gray", "yellow", "red", "pink"];
+            const box = document.querySelector(".box2");
+            const myChart = echarts.init(box);
+            const option = {
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    show: false
+                },
+                yAxis: [
+                    {
+                        type: 'category',
+                        inverse: true,
+                        data: ["HTML5", "CSS3", "javascript", "VUE", "NODE"],
+                        axisLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        }
+                    },
+                    {
+                        data: [702, 350, 610, 793, 664],
+                        inverse: true,
+                        axisLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            show: false
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        type: 'bar',
+                        yAxisIndex: 0,
+                        data: [70, 34, 60, 78, 69],
+                        barWidth: 10,
+                        itemStyle: {
+                            borderRadius: 5,
+                            color: function (param) {
+                                return myColor[param.dataIndex]
+                            }
+                        },
+                        label: {
+                            show: true,
+                            position: "inside",
+                            formatter: "{c}%"
+                        }
+                    },
+                    {
+                        type: 'bar',
+                        yAxisIndex: 1,
+                        barWidth: 15,
+                        itemStyle: {
+                            color: "none",
+                            borderColor: "red",
+                            borderWidth: 3,
+                            borderRadius: 5
+                        },
+                        data: [100, 100, 100, 100, 100]
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            window.addEventListener("resize", () => {
+                myChart.resize();
+            })
+        })();
+
+        // 折线图
+        (function () {
+            const box = document.querySelector(".box3");
+            const myChart = echarts.init(box);
+            const option = {
+                color: ["red", "green"],
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    right: "10%",
+                    top: "10%",
+                    textStyle: {
+                        color: "gray"
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true,
+                    show: true,
+                    borderColor: "gray"
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name: 'Email',
+                        type: 'line',
+                        smooth: true,
+                        data: [120, 132, 101, 134, 90, 230, 210]
+                    },
+                    {
+                        name: 'Union Ads',
+                        type: 'line',
+                        smooth: true,
+                        data: [220, 182, 191, 234, 290, 330, 310]
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            window.addEventListener("resize", () => {
+                myChart.resize();
+            })
+        })();
+
+        // 饼形图
+        (function () {
+            const box = document.querySelector(".box4");
+            const myChart = echarts.init(box);
+            const option = {
+                color: ["gray", "red", "green", "skyblue", "yellow"],
+                tooltip: {
+                    trigger: "item"
+                },
+                legend: {
+                    bottom: "0%",
+                    itemWidth: 10,
+                    itemHeight: 10,
+                    textStyle: {
+                        color: "gray"
+                    }
+                },
+                series: {
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ["40%", "70%"],
+                    label: {
+                        show: false
+                    },
+                    data: [
+                        { value: 1048, name: 'Search Engine' },
+                        { value: 735, name: 'Direct' },
+                        { value: 580, name: 'Email' },
+                        { value: 484, name: 'Union Ads' },
+                        { value: 300, name: 'Video Ads' }
+                    ]
+                }
+            }
+            myChart.setOption(option);
+            window.addEventListener("resize",() => {
+                myChart.resize();
+            })
+        })();
+    </script>
+</body>
+
+</html>
