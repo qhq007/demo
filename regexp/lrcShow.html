@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 300px;
+            height: 100px;
+            border: 1px solid #333;
+            line-height: 100px;
+            font-size: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <audio src="./余年.mp3" controls></audio>
+    <div></div>
+</body>
+    <script src="./lrcStr.js"></script>
+    <script>
+        const audio = document.querySelector("audio");
+        const div = document.querySelector("div");
+        audio.addEventListener("timeupdate",() => {
+            const minutes = parseInt(audio.currentTime / 60);
+            const seconds = parseInt(audio.currentTime % 60);
+            const timeStr = (minutes > 10 ? minutes : "0"+minutes)+":"+(seconds > 10 ? seconds : "0"+seconds);
+            const reg = new RegExp(`\\[${timeStr}\\.\\d{2}\\](.+)`);
+            const arr = reg.exec(str);
+            div.innerHTML = arr? arr[1]:div.innerHTML;
+        })
+    </script>
+</html>

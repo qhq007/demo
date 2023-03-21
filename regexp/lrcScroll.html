@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 2px solid pink;
+            margin: 10px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        ul{
+            position: absolute;
+            width: 100%;
+            top: 150px;
+        }
+        li{
+            list-style: none;
+            line-height: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+        li.active{
+            color: skyblue;
+        }
+        audio{
+            display: block;
+            width: 300px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul></ul>
+    </div>
+    <audio src="./余年.mp3" controls></audio>
+    <script src="./lrcStr.js"></script>
+    <script>
+        const timeArr = [];
+        const lrcArr = [];
+        const reg = /\[(\d{2}:\d{2})\.\d{2}\](.+)/g;
+        let arr = reg.exec(str);
+        while(arr){
+            timeArr.push(arr[1]);
+            lrcArr.push(arr[2]);
+            arr = reg.exec(str);
+        }
+        let s = "";
+        lrcArr.forEach((item,index) => {
+            s += `<li>${item}</li>`;
+        })
+        const ul = document.querySelector("ul");
+        ul.innerHTML = s;
+        const audio = document.querySelector("audio");
+        audio.addEventListener("timeupdate",() => {
+            const minutes = parseInt(audio.currentTime / 60);
+            const seconds = parseInt(audio.currentTime % 60);
+            const timeStr = (minutes > 10 ? minutes : "0"+minutes)+":"+(seconds > 10 ? seconds : "0"+seconds);
+            const index = timeArr.findIndex(item => item === timeStr);
+            console.log(timeStr)
+            if(index !== -1){
+                ul.style.top = -index*20+150+"px";
+                [...ul.children].forEach(item => item.classList.remove("active"));
+                ul.children[index].classList.add("active");
+            }
+        })
+    </script>
+</body>
+</html>
