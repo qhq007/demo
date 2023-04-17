@@ -1,0 +1,40 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+}
+.box{
+    border: 1px dashed gray;
+    min-width: 360px;
+    min-height: 200px;
+    padding: 10px;
+}
+.box input{
+    display: none;
+}
+.box button{
+    height: 30px;
+    color: #fff;
+    border: none;
+}
+.box button.disable{
+    background-color: #ccc;
+}
+.box button:first-of-type{
+    background-color: rgb(43, 159, 226);
+}
+.box button:last-of-type{
+    background-color: rgb(9, 167, 62);
+}
+.box div{
+    margin-top: 20px;
+    color: #ccc;
+    font-size: 12px;
+}
+.box .descri.disable{
+    display: none;
+}
+.box .list em{
+    color: red;
+    margin-left: 20px;
+    cursor: pointer;
+}
