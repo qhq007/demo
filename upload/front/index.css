@@ -16,14 +16,15 @@
     color: #fff;
     border: none;
 }
-.box button.disable{
-    background-color: #ccc;
-}
 .box button:first-of-type{
     background-color: rgb(43, 159, 226);
 }
 .box button:last-of-type{
     background-color: rgb(9, 167, 62);
+}
+.box button.disable{
+    background-color: #ccc;
+    color:#fff;
 }
 .box div{
     margin-top: 20px;
@@ -37,4 +38,32 @@
     color: red;
     margin-left: 20px;
     cursor: pointer;
+}
+.box img{
+    width: 100px;
+}
+.box .upload_progress{
+    display: none;
+    height: 5px;
+    background-color: #ccc;
+}
+.box .upload_progress .value{
+    width: 0%;
+    height: 5px;
+    background-color: rgba(55, 131, 55, 0.548);
+    transition: width .3s;
+}
+
+.box5 .drag .img{
+    width: 100px;
+    height: 80px;
+    margin-left: 50%;
+    transform: translate(-50%,0);
+    background-image: url("./asset/upload.png");
+    background-size: 100% 100%;
+}
+.box5 .drag span{
+    display: block;
+    margin-left: 50%;
+    transform: translate(-50%,0);
 }
