@@ -36,8 +36,8 @@ app.use((req, res, next) => {
 })
 
 //FormData
-app.post("/upload_single", upload.single("file"), (req, res) => {
-    if(exist(req.file.path)){
+app.post("/upload_single", upload.single("file"), async (req, res) => {
+    if(await exist(req.file.path)){
         res.send({
             code: 0,
             mesage: 'upload success'
@@ -121,7 +121,7 @@ app.get("/upload_already", async (req,res) => {
     fileList = fs.readdirSync(path);
     fileList = fileList.sort((a, b) => {
         const reg = /_(\d+)/;
-        return reg.test(a)[1] - reg.test(b)[1];
+        return reg.exec(a)[1] - reg.exec(b)[1];
     })
     res.send({
         code: 0,
