@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <video src="video.mp4" controls width="600"></video>
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <script>
+        const video = document.querySelector("video");
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        let timer;
+        video.onplay = () => {
+            let x = 600;
+            timer = setInterval(() => {
+                x -= 10;
+                ctx.clearRect(0,0,600,400);
+                ctx.fillStyle = "#333";
+                ctx.fillRect(0,0,600,400);
+                ctx.drawImage(video,0,25,600,350);
+
+                ctx.font = "24px 宋体";
+                ctx.fillStyle = "#fff";
+                ctx.fillText("xx视频",480,30);
+                ctx.fillText("好听！",x,50);
+            },16)
+        }
+        video.onpause = () => {
+            clearInterval(timer)
+        }
+
+    </script>
+</body>
+</html>
